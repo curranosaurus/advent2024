@@ -1,4 +1,4 @@
-module Advent.Parse (parseFile, Parser) where
+module Advent.Parse (parseFile, runParser, Parser) where
 
 import Control.Exception
 import Data.Functor.Identity

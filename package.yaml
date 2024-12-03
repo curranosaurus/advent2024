@@ -41,6 +41,7 @@ default-extensions:
 - DeriveAnyClass
 - ImportQualifiedPost
 - OverloadedRecordDot
+- OverloadedStrings
 - TypeOperators
 
 library:
