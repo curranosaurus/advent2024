@@ -4,7 +4,7 @@ import Advent.Parse qualified as Advent
 import Control.Monad.Combinators
 import Text.Megaparsec.Char
 import Text.Megaparsec.Char.Lexer
-import Text.Megaparsec hiding (State)
+import Text.Megaparsec
 
 newtype Report = Report [Int]
   deriving Show
@@ -51,12 +51,6 @@ runProgram1 = length . filter reportIsSafe
 
 runProgram2 :: [Report] -> Int
 runProgram2 = length . filter reportIsNearlySafe
-
-data State = State
-  { removedAnyNumbers :: Bool
-  , initialOrdering :: Ordering
-  }
-  deriving Show
 
 diffInRange :: Int -> Int -> Bool
 diffInRange m n =
