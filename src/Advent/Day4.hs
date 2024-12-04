@@ -87,7 +87,9 @@ threeByThreeBlocks (row1 : row2 : row3 : rest) = go row1 row2 row3 ++ threeByThr
   where
     go :: [Letter] -> [Letter] -> [Letter] -> [Tuple3 (Tuple3 Letter)]
     go (e11 : e12 : e13 : e1Rest) (e21 : e22 : e23 : e2Rest) (e31 : e32 : e33 : e3Rest)
-      = ((e11, e12, e13), (e21, e22, e23), (e31, e32, e33))
-          : go (e12 : e13 : e1Rest) (e22 : e23 : e2Rest) (e32 : e33 : e3Rest)
+      = ( (e11, e12, e13)
+        , (e21, e22, e23)
+        , (e31, e32, e33)
+        ) : go (e12 : e13 : e1Rest) (e22 : e23 : e2Rest) (e32 : e33 : e3Rest)
     go _ _ _ = []
 threeByThreeBlocks _ = []
