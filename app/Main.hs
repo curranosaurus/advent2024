@@ -4,6 +4,7 @@ import System.Environment
 import Advent.Day1 qualified as Day1
 import Advent.Day2 qualified as Day2
 import Advent.Day3 qualified as Day3
+import Advent.Day4 qualified as Day4
 
 main :: IO ()
 main = do
@@ -15,4 +16,6 @@ main = do
     ["real", "2"] -> Day2.real
     ["test", "3"] -> Day3.test
     ["real", "3"] -> Day3.real
+    ["test", "4"] -> Day4.test
+    ["real", "4"] -> Day4.real
     _ -> error "day not found"
