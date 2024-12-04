@@ -61,26 +61,17 @@ runProgram2 = length . filter isXmas . threeByThreeBlocks
 
 isXmas :: Tuple3 (Tuple3 Letter) -> Bool
 isXmas
-  ( ( M, _, S )
+  ( ( a, _, b )
   , ( _, A, _ )
-  , ( M, _, S )
-  ) = True
-isXmas
-  ( ( S, _, S )
-  , ( _, A, _ )
-  , ( M, _, M )
-  ) = True
-isXmas
-  ( ( S, _, M )
-  , ( _, A, _ )
-  , ( S, _, M )
-  ) = True
-isXmas
-  ( ( M, _, M )
-  , ( _, A, _ )
-  , ( S, _, S )
-  ) = True
-isXmas _ = False
+  , ( c, _, d )
+  ) | areOpposite a d && areOpposite b c = True
+    | otherwise = False
+isXmas _ = False 
+
+areOpposite :: Letter -> Letter -> Bool
+areOpposite M S = True
+areOpposite S M = True
+areOpposite _ _ = False
 
 threeByThreeBlocks :: [[Letter]] -> [Tuple3 (Tuple3 Letter)]
 threeByThreeBlocks (row1 : row2 : row3 : rest) = go row1 row2 row3 ++ threeByThreeBlocks (row2 : row3 : rest)
