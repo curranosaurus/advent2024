@@ -20,9 +20,11 @@ extra-source-files:
 description:         Please see the README on GitHub at <https://github.com/githubuser/advent2024#readme>
 
 dependencies:
+- array
 - base >= 4.7 && < 5
 - containers
 - megaparsec
+- nonempty-containers
 - parser-combinators
 - text
 
@@ -40,6 +42,7 @@ ghc-options:
 default-extensions:
 - DeriveAnyClass
 - ImportQualifiedPost
+- LambdaCase
 - OverloadedRecordDot
 - OverloadedStrings
 - TypeOperators

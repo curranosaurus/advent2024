@@ -29,6 +29,8 @@ library
       Advent.Day2
       Advent.Day3
       Advent.Day4
+      Advent.Day5
+      Advent.Day7
       Advent.Parse
   other-modules:
       Paths_advent2024
@@ -39,14 +41,17 @@ library
   default-extensions:
       DeriveAnyClass
       ImportQualifiedPost
+      LambdaCase
       OverloadedRecordDot
       OverloadedStrings
       TypeOperators
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      base >=4.7 && <5
+      array
+    , base >=4.7 && <5
     , containers
     , megaparsec
+    , nonempty-containers
     , parser-combinators
     , text
   default-language: Haskell2010
@@ -62,15 +67,18 @@ executable advent2024-exe
   default-extensions:
       DeriveAnyClass
       ImportQualifiedPost
+      LambdaCase
       OverloadedRecordDot
       OverloadedStrings
       TypeOperators
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       advent2024
+    , array
     , base >=4.7 && <5
     , containers
     , megaparsec
+    , nonempty-containers
     , parser-combinators
     , text
   default-language: Haskell2010
@@ -87,15 +95,18 @@ test-suite advent2024-test
   default-extensions:
       DeriveAnyClass
       ImportQualifiedPost
+      LambdaCase
       OverloadedRecordDot
       OverloadedStrings
       TypeOperators
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       advent2024
+    , array
     , base >=4.7 && <5
     , containers
     , megaparsec
+    , nonempty-containers
     , parser-combinators
     , text
   default-language: Haskell2010
