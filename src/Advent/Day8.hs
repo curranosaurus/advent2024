@@ -1,6 +1,5 @@
 module Advent.Day8 (test, real) where
 
-import Debug.Trace
 import Advent.Grid (Grid, Coord (..))
 import Advent.Grid qualified as Grid
 import Advent.Parse qualified as Advent
@@ -30,7 +29,7 @@ parser = Grid.parser charParser
 test :: IO ()
 test = do
   input <- Advent.parseFile parser "Day8.test.txt"
-  print $ runProgram1 $ traceShowId input
+  print $ runProgram1 input
 
 real :: IO ()
 real = do
@@ -43,10 +42,9 @@ instance Show EndCell where
   show (EndCell False) = "."
   show (EndCell True) = "#"
 
-runProgram1 :: Grid Cell -> Grid EndCell
+runProgram1 :: Grid Cell -> Int
 runProgram1 grid =
-  mkEndCells
-  . Set.fromList
+  length
   . filter (flip Grid.isCoord grid)
   . getAllAntinodes
   . getCharPositions

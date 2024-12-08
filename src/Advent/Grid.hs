@@ -51,7 +51,7 @@ gridHeight (Grid width arr) = arrLen `div` width
   where
     arrLen =
       let (_init, term) = Array.bounds arr
-       in term - 1
+       in term + 1
 
 gridWidth :: Grid a -> Int
 gridWidth (Grid width _) = width
