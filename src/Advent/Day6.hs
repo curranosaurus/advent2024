@@ -6,7 +6,6 @@ import Advent.Parse qualified as Advent
 import Control.Monad.Combinators
 import Data.Array qualified as Array
 import Data.Array (Array)
-import Data.List (foldl')
 import Data.Set qualified as Set
 import Data.Set (Set)
 import Data.Text qualified as T
@@ -15,7 +14,7 @@ import Text.Megaparsec
 import Text.Megaparsec.Char
 
 data Dir = DirUp | DirRight | DirDown | DirLeft
-  deriving (Show, Eq, Ord)
+  deriving (Show, Eq, Ord, Bounded, Enum)
 
 rot90 :: Dir -> Dir
 rot90 DirUp = DirRight
@@ -147,18 +146,14 @@ nextMap botRight cells s =
 runProgram2 :: (Int, Int) -> Input -> Int
 runProgram2 botRight input = length $ filter (resultsInLoop botRight) mapOptions
   where
-    mapOptions = map (\cell -> input { inputCells = addObstacle botRight input.inputCells cell }) validCellsAdjacentToGuardCells
+    mapOptions = map (\cell -> input { inputCells = addObstacle botRight input.inputCells cell }) validCellsForObstacle
     guardCells = visitedCells $ runProgram1Iteration botRight input
     guardInitialCell = toPairIdx botRight input.inputGuardIdx
-    validCellsAdjacentToGuardCells = filter cellCanHaveNewObstacle $ Set.toList cellsAdjacentToGuardCells
+    validCellsForObstacle = filter cellCanHaveNewObstacle $ Set.toList guardCells
     cellCanHaveNewObstacle cell =
       cellInBounds botRight cell
         && getCell botRight cell input.inputCells == Open
         && cell /= guardInitialCell
-    cellsAdjacentToGuardCells = Set.foldl accum guardCells guardCells
-      where
-        accum cells cell =
-          foldl' (flip Set.insert) cells [setGoal cell DirUp, setGoal cell DirRight, setGoal cell DirDown, setGoal cell DirLeft]
               
 addObstacle :: (Int, Int) -> Cells -> (Int, Int) -> Cells
 addObstacle botRight (Cells cells) newObstacle =
