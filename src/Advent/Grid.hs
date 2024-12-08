@@ -1,4 +1,4 @@
-module Advent.Grid (Grid, fromList, Coord (..), toList, Dir (..), lookup, isCoord, coords, parser, gridWidth, gridHeight) where
+module Advent.Grid (Grid, fromList, Coord (..), addCoord, multCoord, toList, Dir (..), lookup, isCoord, coords, parser, gridWidth, gridHeight) where
 
 import Advent.Parse qualified as Advent
 import Control.Monad.Extra
@@ -16,6 +16,12 @@ data Dir = DirUp | DirRight | DirDown | DirLeft
 
 data Coord = Coord { coordRow :: Int, coordCol :: Int }
   deriving (Show, Eq, Ord)
+
+addCoord :: Coord -> Coord -> Coord
+addCoord (Coord a b) (Coord c d) = Coord (a + c) (b + d)
+
+multCoord :: Int -> Coord -> Coord
+multCoord m (Coord a b) = Coord (m * a) (m * b)
 
 data Grid a = Grid Int (Array Int a)
 

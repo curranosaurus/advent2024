@@ -30,17 +30,13 @@ test :: IO ()
 test = do
   input <- Advent.parseFile parser "Day8.test.txt"
   print $ runProgram1 input
+  print $ runProgram2 input
 
 real :: IO ()
 real = do
   input <- Advent.parseFile parser "Day8.txt"
   print $ runProgram1 input
-
-newtype EndCell = EndCell Bool
-
-instance Show EndCell where
-  show (EndCell False) = "."
-  show (EndCell True) = "#"
+  print $ runProgram2 input
 
 runProgram1 :: Grid Cell -> Int
 runProgram1 grid =
@@ -49,6 +45,13 @@ runProgram1 grid =
   . getAllAntinodes
   . getCharPositions
   $ fmap (\(Cell c) -> c) grid
+
+runProgram2 :: Grid Cell -> Int
+runProgram2 grid =
+  let unCelledGrid = fmap (\(Cell c) -> c) grid
+      charPositions = getCharPositions unCelledGrid
+      allAntinodes = getAllResonantAntinodes unCelledGrid charPositions
+   in length allAntinodes
 
 getAllAntinodes :: Map Char (Set Coord) -> [Coord]
 getAllAntinodes coordMap = Set.toList $ Map.foldl' accum Set.empty coordMap
@@ -75,3 +78,20 @@ getCharPositions grid =
     addElt coord s = case s of
       Nothing -> Just $ Set.singleton coord
       Just s' -> Just $ Set.insert coord s'
+
+getAllResonantAntinodes :: Grid (Maybe Char) -> Map Char (Set Coord) -> [Coord]
+getAllResonantAntinodes grid coordMap = Set.toList $ Map.foldl' accum Set.empty coordMap
+  where
+    pairs :: [a] -> [(a, a)]
+    pairs l = [(x, y) | (x : ys) <- tails l, y <- ys]
+    accum antinodes coords = antinodes <> getAntinodes (pairs $ Set.toList coords)
+    getAntinodes coords = foldl' (<>) Set.empty (map (uncurry getLinearAntinodes) coords)
+    getLinearAntinodes coord1@(Coord row1 col1) coord2@(Coord row2 col2) =
+      let deltaRow = row2 - row1
+          deltaCol = col2 - col1
+          delta = Coord deltaRow deltaCol
+          infiniteForwardses = map (\m -> Grid.addCoord coord2 $ Grid.multCoord m delta) [0..]
+          infiniteBackwardses = map (\m -> Grid.addCoord coord1 $ Grid.multCoord (-m) delta) [0..]
+          forwardses = takeWhile (flip Grid.isCoord grid) infiniteForwardses
+          backwardses = takeWhile (flip Grid.isCoord grid) infiniteBackwardses
+       in Set.fromList $ forwardses ++ backwardses
