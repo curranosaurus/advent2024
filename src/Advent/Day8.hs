@@ -49,9 +49,6 @@ runProgram1 grid =
   . getAllAntinodes
   . getCharPositions
   $ fmap (\(Cell c) -> c) grid
-  where
-    mkEndCells :: Set Coord -> Grid EndCell
-    mkEndCells s = Grid.fromList (Grid.gridWidth grid) $ map (\coord -> EndCell $ Set.member coord s) (Grid.coords grid)
 
 getAllAntinodes :: Map Char (Set Coord) -> [Coord]
 getAllAntinodes coordMap = Set.toList $ Map.foldl' accum Set.empty coordMap
