@@ -23,10 +23,12 @@ dependencies:
 - array
 - base >= 4.7 && < 5
 - containers
+- extra
 - megaparsec
 - nonempty-containers
 - parser-combinators
 - text
+- transformers
 
 ghc-options:
 - -Wall
@@ -41,10 +43,13 @@ ghc-options:
 
 default-extensions:
 - DeriveAnyClass
+- GeneralizedNewtypeDeriving
 - ImportQualifiedPost
 - LambdaCase
 - OverloadedRecordDot
 - OverloadedStrings
+- ScopedTypeVariables
+- TupleSections
 - TypeOperators
 
 library:

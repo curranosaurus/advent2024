@@ -8,6 +8,7 @@ import Advent.Day4 qualified as Day4
 import Advent.Day5 qualified as Day5
 import Advent.Day6 qualified as Day6
 import Advent.Day7 qualified as Day7
+import Advent.Day8 qualified as Day8
 
 main :: IO ()
 main = do
@@ -27,4 +28,6 @@ main = do
     ["real", "6"] -> Day6.real
     ["test", "7"] -> Day7.test
     ["real", "7"] -> Day7.real
+    ["test", "8"] -> Day8.test
+    ["real", "8"] -> Day8.real
     _ -> error "day not found"
