@@ -30,6 +30,7 @@ library
       Advent.Day3
       Advent.Day4
       Advent.Day5
+      Advent.Day6
       Advent.Day7
       Advent.Parse
   other-modules:

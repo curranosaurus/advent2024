@@ -19,5 +19,5 @@ runParser parser input = case Megaparsec.runParser parser "" input of
 
 parseFile :: Parser a -> String -> IO a
 parseFile parser fileName = do
-  rawInput <- T.readFile $ "src/Advent/" <> fileName
+  rawInput <- T.readFile $ "data/" <> fileName
   runParser parser rawInput
